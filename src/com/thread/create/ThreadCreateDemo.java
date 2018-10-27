@@ -5,6 +5,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
+/**
+ * 传统线程的创建以及使用
+ * @author Administrator
+ *
+ */
 public class ThreadCreateDemo {
 
 	public static void main(String[] args) throws InterruptedException, ExecutionException {

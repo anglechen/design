@@ -3,6 +3,11 @@ package com.thread.create;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * 定时器的基本使用
+ * @author Administrator
+ *
+ */
 public class TimerTest {
 
 	public static void main(String[] args) {

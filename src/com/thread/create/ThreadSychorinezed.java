@@ -1,5 +1,10 @@
 package com.thread.create;
-
+/**
+ * 线程同步与通信
+ * sychorinzed wait notify/notifyAll
+ * @author Administrator
+ *
+ */
 public class ThreadSychorinezed {
 	public static void main(String[] args) {
 		SynchronizedClass sc = new SynchronizedClass();
