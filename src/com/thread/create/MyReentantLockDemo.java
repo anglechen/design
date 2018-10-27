@@ -1,18 +1,11 @@
 package com.thread.create;
 
-public class MyLockDemo {
+public class MyReentantLockDemo {
 	private static MyReentantLock myLock = new MyReentantLock();
 	
 	public static void main(String[] args) {
 		
-		new Thread(()->{
-			operation1();
-		}).start();;
-		
-		new Thread(()->{
-			operation2();
-		}).start();;
-		
+		operation1();
 		
 	}
 	
@@ -20,12 +13,9 @@ public class MyLockDemo {
 		System.out.println("operation1 is in");
 		myLock.lock();
 		System.out.println("operation1 get lock");
-		try {
-			Thread.sleep(10 * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		System.out.println("operation1 doing.....");
+		
+		operation2();
+		
 		myLock.unLock();
 		System.out.println("operation1 is done");
 	}
@@ -45,12 +35,16 @@ public class MyLockDemo {
 
 
 
-class MyLock{
+class MyReentantLock{
 	
 	private boolean lock = false;
 	
+	private Thread lockBy = null;
+	
+	private  int lockCount = 0; 
+	
 	 public synchronized void lock() {
-		 while(lock) {
+		 while(lock && lockBy != Thread.currentThread()) {
 			 try {
 				wait();
 			} catch (InterruptedException e) {
@@ -58,13 +52,19 @@ class MyLock{
 			}
 		 }
 		 lock = true;
+		 lockCount++;
+		 lockBy = Thread.currentThread();
 		 
 	 }
 	 
 	 
 	 public synchronized void unLock() {
-		 lock = false;
-		 notifyAll();
+		 if(lockBy == Thread.currentThread()) {
+			 lock = false;
+			 lockCount--;
+			 notifyAll();
+		 }
+		 
 	 }
 	
 	
